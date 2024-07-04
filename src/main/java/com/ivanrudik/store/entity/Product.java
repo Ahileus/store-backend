@@ -18,7 +18,7 @@ public class Product {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name="category_id", nullable=false , insertable=false, updatable=false)
     private Category category;
     private String name;
     private Double price;
