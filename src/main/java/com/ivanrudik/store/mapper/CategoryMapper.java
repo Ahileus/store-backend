@@ -16,4 +16,13 @@ public class CategoryMapper {
         categoryDTO.setProducts(ProductMapper.mapToListProductDTO(category.getProducts()));
         return categoryDTO;
     }
+
+    public static Category mapToCategory(CategoryDTO categoryDTO) {
+        Category category = new Category();
+        category.setId(categoryDTO.getId());
+        category.setName(categoryDTO.getName());
+        category.setDescription(categoryDTO.getDescription());
+        category.setProducts(ProductMapper.mapToListProduct(categoryDTO.getProducts()));
+        return category;
+    }
 }
