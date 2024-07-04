@@ -8,6 +8,8 @@ import com.ivanrudik.store.service.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -19,5 +21,23 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = CategoryMapper.mapToCategory(categoryDTO);
         Category savedCategory = categoryRepository.save(category);
         return CategoryMapper.mapToCategoryDTO(savedCategory);
+    }
+
+    @Override
+    public List<CategoryDTO> getAllCategories() {
+        return categoryRepository
+                .findAll()
+                .stream()
+                .map(CategoryMapper::mapToCategoryDTO)
+                .toList();
+    }
+
+    @Override
+    public CategoryDTO getCategoryById(Long id) {
+        Category category = categoryRepository
+                .findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+
+        return CategoryMapper.mapToCategoryDTO(category);
     }
 }
