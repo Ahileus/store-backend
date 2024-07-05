@@ -44,4 +44,15 @@ public class ProductController {
             @RequestParam(defaultValue = "asc") String sortDirection) {
         return productService.updateProduct(categoryId, productDTO, page, size, sortField, sortDirection);
     }
+
+    @DeleteMapping("/{productId}")
+    public Page<ProductDTO> deleteProductsByCategoryId(
+            @PathVariable Long categoryId,
+            @PathVariable Long productId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortField,
+            @RequestParam(defaultValue = "asc") String sortDirection) {
+        return productService.deleteProduct(categoryId, productId, page, size, sortField, sortDirection);
+    }
 }

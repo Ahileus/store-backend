@@ -55,6 +55,12 @@ public class ProductServiceImpl implements ProductService {
         return this.getProductsByCategoryId(categoryId, page, size, sortField, sortDirection);
     }
 
+    @Override
+    public Page<ProductDTO> deleteProduct(Long categoryId, Long productId, int page, int size, String sortField, String sortDirection) {
+        productRepository.deleteById(productId);
+        return this.getProductsByCategoryId(categoryId, page, size, sortField, sortDirection);
+    }
+
     private Sort createSort(String sortField, String sortDirection) {
         Sort sort = Sort.by(sortField);
         if (sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())) {
