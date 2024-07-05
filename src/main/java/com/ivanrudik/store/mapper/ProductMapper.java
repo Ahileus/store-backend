@@ -2,6 +2,7 @@ package com.ivanrudik.store.mapper;
 
 import com.ivanrudik.store.dto.ProductDTO;
 import com.ivanrudik.store.entity.Product;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,6 +15,12 @@ public class ProductMapper {
                 .stream()
                 .map(ProductMapper::mapToProductDTO)
                 .collect(Collectors.toList());
+    }
+
+    public static Page<ProductDTO> mapToPageProductDTO(Page<Product> products) {
+
+        return products
+                .map(ProductMapper::mapToProductDTO);
     }
 
     public static List<Product> mapToListProduct(List<ProductDTO> productsDTO) {
@@ -29,7 +36,7 @@ public class ProductMapper {
         productDTO.setId(product.getId());
         productDTO.setName(product.getName());
         productDTO.setPrice(product.getPrice());
-        productDTO.setStock(productDTO.getStock());
+        productDTO.setStock(product.getStock());
         return productDTO;
     }
 
