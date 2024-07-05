@@ -17,12 +17,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @AllArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService {
 
     private ProductRepository productRepository;
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
     @Override
     public Page<ProductDTO> getProductsByCategoryId(Long categoryId, int page, int size, String sortField, String sortDirection) {
@@ -34,13 +36,23 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductDTO> createProduct(Long categoryId, ProductDTO productDTO, int page, int size, String sortField, String sortDirection) {
-        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new RuntimeException());
+        Category category = CategoryMapper.mapToCategory(categoryService.getCategoryById(categoryId));
         Product product = ProductMapper.mapToProduct(productDTO);
         product.setCategory(category);
         productRepository.save(product);
+        return this.getProductsByCategoryId(categoryId, page, size, sortField, sortDirection);
+    }
 
-
-        return  this.getProductsByCategoryId(categoryId, page, size, sortField, sortDirection);
+    @Override
+    public Page<ProductDTO> updateProduct(Long categoryId, ProductDTO productDTO, int page, int size, String sortField, String sortDirection) {
+        Product product = productRepository
+                .findById(productDTO.getId())
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+        product.setName(productDTO.getName());
+        product.setPrice(productDTO.getPrice());
+        product.setStock(productDTO.getStock());
+        productRepository.save(product);
+        return this.getProductsByCategoryId(categoryId, page, size, sortField, sortDirection);
     }
 
     private Sort createSort(String sortField, String sortDirection) {

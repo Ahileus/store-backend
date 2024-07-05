@@ -33,4 +33,15 @@ public class ProductController {
             @RequestParam(defaultValue = "asc") String sortDirection) {
         return productService.createProduct(categoryId, productDTO, page, size, sortField, sortDirection);
     }
+
+    @PutMapping
+    public Page<ProductDTO> updateProductsByCategoryId(
+            @PathVariable Long categoryId,
+            @RequestBody ProductDTO productDTO,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortField,
+            @RequestParam(defaultValue = "asc") String sortDirection) {
+        return productService.updateProduct(categoryId, productDTO, page, size, sortField, sortDirection);
+    }
 }
