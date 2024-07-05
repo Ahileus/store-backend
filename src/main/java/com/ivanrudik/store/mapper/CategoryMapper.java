@@ -13,7 +13,7 @@ public class CategoryMapper {
         categoryDTO.setId(category.getId());
         categoryDTO.setName(category.getName());
         categoryDTO.setDescription(category.getDescription());
-        categoryDTO.setProducts(ProductMapper.mapToListProductDTO(category.getProducts()));
+        //categoryDTO.setProducts(ProductMapper.mapToListProductDTO(category.getProducts()));
         return categoryDTO;
     }
 
@@ -22,7 +22,7 @@ public class CategoryMapper {
         category.setId(categoryDTO.getId());
         category.setName(categoryDTO.getName());
         category.setDescription(categoryDTO.getDescription());
-        category.setProducts(ProductMapper.mapToListProduct(categoryDTO.getProducts()));
+        //category.setProducts(ProductMapper.mapToListProduct(categoryDTO.getProducts()));
         return category;
     }
 }

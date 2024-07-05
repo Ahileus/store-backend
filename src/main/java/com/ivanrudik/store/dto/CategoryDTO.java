@@ -16,5 +16,5 @@ public class CategoryDTO {
     private Long id;
     private String name;
     private String description;
-    private List<ProductDTO> products = new ArrayList<>();
+    //private List<ProductDTO> products = new ArrayList<>();
 }

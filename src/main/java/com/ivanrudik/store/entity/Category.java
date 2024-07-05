@@ -26,7 +26,7 @@ public class Category {
     private String description;
 
     //@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OneToMany(targetEntity = Product.class, cascade=CascadeType.ALL)
-    @JoinColumn(name = "category_id", nullable = false)
-    private List<Product> products;
+    //@OneToMany(targetEntity = Product.class, cascade=CascadeType.ALL)
+    //@JoinColumn(name = "category_id", nullable = false)
+    //private List<Product> products;
 }
