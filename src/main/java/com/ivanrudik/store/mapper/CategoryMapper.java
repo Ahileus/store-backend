@@ -19,7 +19,7 @@ public class CategoryMapper {
 
     public static Category mapToCategory(CategoryDTO categoryDTO) {
         Category category = new Category();
-        //category.setId(categoryDTO.getId());
+        category.setId(categoryDTO.getId());
         category.setName(categoryDTO.getName());
         category.setDescription(categoryDTO.getDescription());
         category.setProducts(ProductMapper.mapToListProduct(categoryDTO.getProducts()));

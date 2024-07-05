@@ -42,7 +42,7 @@ public class ProductMapper {
 
     public static Product mapToProduct(ProductDTO productDTO) {
         Product product = new Product();
-        //product.setId(productDTO.getId());
+        product.setId(productDTO.getId());
         product.setName(productDTO.getName());
         product.setPrice(productDTO.getPrice());
         product.setStock(productDTO.getStock());
