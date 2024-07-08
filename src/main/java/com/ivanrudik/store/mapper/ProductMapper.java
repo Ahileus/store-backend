@@ -14,7 +14,8 @@ public class ProductMapper {
         return products
                 .stream()
                 .map(ProductMapper::mapToProductDTO)
-                .collect(Collectors.toList());
+                .toList();
+                //.collect(Collectors.toList());
     }
 
     public static Page<ProductDTO> mapToPageProductDTO(Page<Product> products) {
@@ -28,7 +29,8 @@ public class ProductMapper {
         return productsDTO
                 .stream()
                 .map(ProductMapper::mapToProduct)
-                .collect(Collectors.toList());
+                .toList();
+                //.collect(Collectors.toList());
     }
 
     public static ProductDTO mapToProductDTO(Product product) {

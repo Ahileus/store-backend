@@ -27,24 +27,24 @@ public class ProductServiceImpl implements ProductService {
     private CategoryService categoryService;
 
     @Override
-    public Page<ProductDTO> getProductsByCategoryId(Long categoryId, int page, int size, String sortField, String sortDirection) {
-        Sort sort = this.createSort(sortField, sortDirection);
-        Pageable pageable = PageRequest.of(page, size, sort);
+    public Page<ProductDTO> getProductsByCategoryId(Long categoryId, Pageable pageable) {
+        //Sort sort = this.createSort(sortField, sortDirection);
+        //Pageable pageable = PageRequest.of(page, size, sort);
         Page<Product> products = productRepository.findByCategoryId(categoryId, pageable);
         return ProductMapper.mapToPageProductDTO(products);
     }
 
     @Override
-    public Page<ProductDTO> createProduct(Long categoryId, ProductDTO productDTO, int page, int size, String sortField, String sortDirection) {
+    public Page<ProductDTO> createProduct(Long categoryId, ProductDTO productDTO, Pageable pageable) {
         Category category = CategoryMapper.mapToCategory(categoryService.getCategoryById(categoryId));
         Product product = ProductMapper.mapToProduct(productDTO);
         product.setCategory(category);
         productRepository.save(product);
-        return this.getProductsByCategoryId(categoryId, page, size, sortField, sortDirection);
+        return this.getProductsByCategoryId(categoryId, pageable);
     }
 
     @Override
-    public Page<ProductDTO> updateProduct(Long categoryId, ProductDTO productDTO, int page, int size, String sortField, String sortDirection) {
+    public Page<ProductDTO> updateProduct(Long categoryId, ProductDTO productDTO, Pageable pageable) {
         Product product = productRepository
                 .findById(productDTO.getId())
                 .orElseThrow(() -> new RuntimeException("Product not found"));
@@ -52,24 +52,24 @@ public class ProductServiceImpl implements ProductService {
         product.setPrice(productDTO.getPrice());
         product.setStock(productDTO.getStock());
         productRepository.save(product);
-        return this.getProductsByCategoryId(categoryId, page, size, sortField, sortDirection);
+        return this.getProductsByCategoryId(categoryId, pageable);
     }
 
     @Override
-    public Page<ProductDTO> deleteProduct(Long categoryId, Long productId, int page, int size, String sortField, String sortDirection) {
+    public Page<ProductDTO> deleteProduct(Long categoryId, Long productId, Pageable pageable) {
         productRepository.deleteById(productId);
-        return this.getProductsByCategoryId(categoryId, page, size, sortField, sortDirection);
+        return this.getProductsByCategoryId(categoryId, pageable);
     }
 
-    private Sort createSort(String sortField, String sortDirection) {
-        Sort sort = Sort.by(sortField);
-        if (sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())) {
-            sort = sort.ascending();
-        } else {
-            sort = sort.descending();
-        }
-        return sort;
-    }
+//    private Sort createSort(String sortField, String sortDirection) {
+//        Sort sort = Sort.by(sortField);
+//        if (sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())) {
+//            sort = sort.ascending();
+//        } else {
+//            sort = sort.descending();
+//        }
+//        return sort;
+//    }
 }
 
 
